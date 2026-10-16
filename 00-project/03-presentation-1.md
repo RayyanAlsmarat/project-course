@@ -1,6 +1,7 @@
 ---
-project_outline: "[[00-project/01-project-outline]]"
+project_outline: "[[01-project-outline]]"
 ---
+
 
 <!-- 5xl -->
 # Real-Time Procedural Terrain Generation and Level-of-Detail Management
@@ -17,104 +18,70 @@ Project ID: 2026-NP-03
 
 ---
 
-## Procedural terrain generation
-
-- Generates terrain automatically from algorithms and parameters.
-- Uses a deterministic world seed for repeatable experiments.
-- This project uses a heightmap divided into chunks.
-
----
-
 ## Problem
 
-- Large worlds cannot efficiently keep every region at maximum detail.
-- Moving viewers require new terrain to appear quickly.
-- Abrupt LOD changes can create visual artifacts and frame-time spikes.
-- We need measurable comparisons between terrain detail policies.
+Large game worlds require terrain to be generated and displayed without keeping maximum-detail geometry everywhere at once.
 
----
+This project aims to generate terrain procedurally, manage it in chunks or tiles, and select geometric detail according to the viewer's position and computational constraints. As the viewer moves, the system must load, update, and remove terrain chunks while remaining responsive.
+
+The project will implement and compare at least two meaningful terrain-generation or level-of-detail (LOD) strategies, or variants. The comparison will investigate the trade-offs between visual fidelity, generation and update cost, memory use, loading responsiveness, and geometric complexity.
 
 ## Target users
 
-- Game developers exploring large-world rendering.
-- Students and researchers studying procedural generation.
-- Developers comparing performance and visual quality.
+The project is an experimental terrain demonstrator rather than a complete open-world game.
 
----
+The main user is the person interacting with and evaluating the demonstrator. They should be able to move through the generated terrain, observe how chunks and LOD change, and run or review controlled comparisons of the selected strategies.
+
+The project also supports technical evaluation by recording performance and complexity indicators and documenting the limits of the implementation.
 
 ## Planned scope
 
-- Seeded procedural heightmap terrain.
-- Chunk-based loading and unloading around a moving camera.
-- Multiple mesh resolutions and configurable view distance.
-- Two LOD strategies, boundary handling, and performance logging.
+The planned demonstrator will include:
 
----
+- procedural terrain height or geometry generation
+- terrain chunk or tile management
+- dynamic loading, updating, and removal of chunks as the viewer moves
+- a custom LOD selection mechanism
+- at least two meaningful terrain-generation or LOD strategies, or variants, for comparison
+- incremental or asynchronous generation
+- handling of neighbouring chunks with different LODs
+- prevention of visible cracks or measurement and analysis of cracks and abrupt transitions
+- controlled experiments varying view distance, camera movement, terrain size, chunk resolution, number of active chunks, LOD thresholds, and generation complexity
+- reproducible measurements of generation time, frame or CPU cost, memory use, generated geometry size, and chunk-loading latency
+- visual-fidelity and geometric/visual-error assessment where practical
 
-## Terrain and chunk model
+The specific algorithms and implementation choices will be selected during the technical investigation before the main implementation. Building a complete open-world game is outside the scope.
 
-- The world is split into square chunks identified by grid coordinates.
-- Global noise coordinates help neighbouring chunks align.
-- Each chunk can be displayed at high, medium, or low resolution.
+## Initial user journeys
 
----
+### Moving through the terrain
 
-## Strategy 1: Distance-based LOD
+1. The viewer starts the demonstrator.
+2. The system generates or loads the terrain chunks needed around the viewer.
+3. The custom LOD policy selects the detail level for active regions.
+4. The viewer moves through the terrain.
+5. The system requests and generates newly needed chunks.
+6. The system updates LOD and unloads chunks that are no longer needed.
+7. The viewer observes the terrain and its responsiveness.
 
-- High detail near the camera.
-- Medium detail at intermediate distances.
-- Low detail farther away.
-- Provides a simple baseline for comparison.
+### Comparing terrain strategies
 
----
-
-## Strategy 2: Roughness-aware LOD
-
-- Considers camera distance and terrain height variation.
-- Gives extra detail to complex terrain where useful.
-- May improve visual allocation but adds selection overhead.
-
----
-
-## Streaming and transitions
-
-- Request new chunks as the camera moves.
-- Limit generation work per frame to avoid large stalls.
-- Unload chunks outside the active area.
-- Test skirts or edge stitching for different-resolution neighbours.
-
----
-
-## Evaluation metrics
-
-- Frame time and frame-time spikes.
-- Chunk generation time and loading latency.
-- Number of active chunks and mesh triangles.
-- Approximate memory usage.
-- Visual differences and boundary artifacts.
-
----
-
-## Research question
-
-Can a roughness-aware LOD policy preserve more visible terrain detail than fixed distance bands at a comparable rendering budget, and what additional CPU or loading cost does it introduce?
-
----
-
-## Experiment plan
-
-1. Keep the same world seed, hardware, and camera path.
-2. Run both LOD policies under matching settings.
-3. Repeat for different view distances and chunk resolutions.
-4. Compare distributions of performance and visual-quality measures.
-5. Explain trade-offs and limitations.
-
----
+1. The operator selects an implemented terrain-generation or LOD strategy.
+2. The operator chooses a documented test configuration.
+3. The system displays the generated terrain.
+4. A defined movement or observation scenario is performed.
+5. The system records the selected performance and complexity measurements.
+6. The experiment is repeated with another strategy under equivalent conditions.
+7. The results are compared and the trade-offs are documented.
 
 ## Next steps
 
-1. Choose the rendering framework and prototype one terrain chunk.
-2. Add camera-based chunk streaming.
-3. Implement both LOD policies.
-4. Test boundaries and collect repeatable measurements.
-5. Analyze results and prepare the final demonstration.
+1. Research suitable procedural terrain-generation methods.
+2. Research candidate LOD strategies and identify at least two meaningful approaches or variants to compare.
+3. Choose an implementation environment that allows the project to make its own central terrain-generation and LOD contributions.
+4. Define the terrain chunk representation and generation pipeline.
+5. Define chunk loading, updating, unloading, and incremental/asynchronous generation.
+6. Investigate how to handle boundaries between neighbouring chunks with different LODs.
+7. Define the experiment parameters, test scenarios, metrics, and reproducibility procedure.
+8. Build a small prototype to validate feasibility and establish baseline measurements.
+9. Implement the selected approaches, run controlled experiments, and compare the results
