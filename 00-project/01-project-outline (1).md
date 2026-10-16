@@ -1,9 +1,8 @@
 ---
-name: [Your Name]
-neptun: [Your Neptun]
+name: Rayyan Alsmarat  
+neptun: Y0J3P8
 id: 2026-NP-03
-github: [Your GitHub repository URL]
-github_project: [Your GitHub project URL, if applicable]
+github: https://github.com/RayyanAlsmarat/project-course
 supervisor: Péter NOVÁK
 ---
 # Real-Time Procedural Terrain Generation and Level-of-Detail Management
