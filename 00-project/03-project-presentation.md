@@ -21,10 +21,8 @@ Large game worlds need terrain generated and displayed without maximum-detail ge
 
 ### 01 — Generate procedurally
 Manage terrain in chunks or tiles.
-
 ### 02 — Select detail
 Use viewer position and computational constraints.
-
 ### 03 — Stay responsive
 Load, update, and remove chunks as the viewer moves.
 
